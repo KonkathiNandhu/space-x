@@ -1,14 +1,24 @@
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./Components/Header";
-import Launchescontainer from "./Components/Launchescontainer";
+import Launchlist from "./Lauchlist/Launchlist";
+import LaunchView from "./Components/LaunchView/LaunchView";
+
 
 function App() {
   return (
     <div className="App">
-     <Header />
-     <Launchescontainer image="https://tvseriescritic.files.wordpress.com/2016/10/stranger-things-bicycle-lights-children.jpg"
-     rocket_name="Jane Doe" mission_name="FalconSat"
-     details="Engine failure at 33 seconds and loss of vehicle"
-     launch_date_local= "2006-03-25T10:30:00+12:00"/>
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/launches/:flight_number">
+            <LaunchView />
+          </Route>
+          <Route path="/" exact>
+            <Launchlist/>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

@@ -43,7 +43,14 @@ h1 {
 .header h1 {
   padding: 30px 0;
 }
-
+.launches-item {
+  margin: 3rem auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 // clear-fix mixin
 @mixin cf {
   &::before,
@@ -55,14 +62,17 @@ h1 {
     clear: both;
   }
 }
-
-// Base styles
-.card {
-  float: left;
-  margin: 0 15px;
-  width: 30%;
+.launchview_container {
+}
+.launches-item a {
+  margin: 15px;
+  flex: 0 1 calc(30% - 1em);
   background-color: transparent;
   padding: 0;
+}
+// Base styles
+.card {
+  border: none;
   .menu-content {
     @include cf;
     margin: 0;
@@ -135,6 +145,10 @@ h1 {
   .text {
     height: 70px;
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   input[type="checkbox"] {
     display: none;
@@ -213,6 +227,19 @@ h1 {
         transform: translate(5px, -50%);
         opacity: 1;
       }
+    }
+  }
+}
+.innerView {
+  padding: 3rem;
+  width: 60%;
+  .meta-data {
+    span {
+      width: 50%;
+      float: left;
+    }
+    .local_date {
+      text-align: right;
     }
   }
 }
