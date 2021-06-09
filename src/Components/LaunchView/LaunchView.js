@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router'
 import '../../style.scss'
-
-  const zoomInProperties = {
-    indicators: true,
-    scale: 1.4
-  }
+import { Zoom } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
 
 export class LaunchView extends Component {
     state = {
-        launch:[]
+        launch: {
+        links: {
+            flickr_images: []
+        }
+        }
     }
     componentDidMount = () => {
         const flightNo = this.props.match.params.flight_number
@@ -24,7 +25,19 @@ export class LaunchView extends Component {
             console.log(error)
         })
     }
-    render() {        
+  launchAttribute = (title, key) => {
+    const value = this.state.launch[key]
+    return (
+      <div className="attribute">
+        <h1>{title}</h1>
+        <h1>{value}</h1>
+      </div>
+    )
+  }
+
+
+  render() {
+    const hasImages = this.state.launch.links.flickr_images.length > 0;       
         return (
             <div className="launches-item">
             <div className="card-item card innerView">
@@ -34,8 +47,19 @@ export class LaunchView extends Component {
                    <span>Flight Number: {this.state.launch.flight_number}</span>
                    <span className="local_date">{this.state.launch.launch_date_local}</span>
                 </div>
-                <img src="" alt={this.state.launch.mission_name} />
-                <p>{this.state.launch.details}</p>
+                <div className="slide-container">
+        {
+          hasImages && (
+              <Zoom scale={0.4}>
+          {
+            this.state.launch.links.flickr_images.map((each, index) => <img key={index} style={{width: "100%"}} src={each} />)
+          }
+        </Zoom>        
+
+          )
+        }  
+        </div>              
+        <p>{this.state.launch.details}</p>
             </div>
             </div>
         )
